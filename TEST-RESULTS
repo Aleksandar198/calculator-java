@@ -1,1 +1,93 @@
+TEST OSNOVNIH OPERACIJA
+-------------------------
+T1: 2+2 | OCEKIVANO 4.0 | DOBIJENO 4.0 | PROSAO
+T2: 10-3 | OCEKIVANO 7.0 | DOBIJENO 7.0 | PROSAO
+T3: 7*2 | OCEKIVANO 14.0 | DOBIJENO 14.0 | PROSAO
+T4: 10/2 | OCEKIVANO 5.0 | DOBIJENO 5.0 | PROSAO
+
+TEST PRIORITETA
+---------------------
+T5: 10+5*4+3 | OCAKIVANO 33.0 | DOBIJENO 33.0 | PROSAO
+T6: 20/5+2*3 |OCAKIVANO 10.0 | DOBIJENO 10.0 | PROSAO
+T7: (5+5+2)*3 | OCEKIVANO 36.0 | DOBIJENO ERROR | PAO------ ne podrzava promenu prioriteta
+
+TEST SA NEGATIVNIM BROJEVIMA
+-----------------------------
+
+T8: -7-8 | OCAKIVANO -15.0 | DOBIJENO -15.0 | PROSAO
+T9: -7+8 | OCEKIVANO 1.0 | DOBIJENO 1.0 | PROSAO
+T9: -5*(-5) | OCEKIVANO 25.0 | DOBIJENO ERROR | PAO ------- ne podrzava mnozenje dva negativna broja
+T10: -5*4 | OCEKIVANO -20.0 | DOBIJENO -20.0 | PROSAO
+T11: 5*(-4) | OCEKIVANO -20.0 | DOBIJENO ERROR | PAO------- ne podrzava negativni mnozilaz
+T12: -10/(-2) | OCEKIVANO 5.0 | DOBIJENO ERROR | PAO------- ne podrzava deljenje dva negativna broja
+T13: -10/2 | OCEKIVANO -5.0 | DOBIJENO -5.0 | PROSAO
+T14: 44/(-2) | OCEKIVANO -22.0 | DOBIJENO ERROR | PAO------ ne podrzaava negativni delilac
+
+TEST SPECIJALNIH SLUCAJEVA
+----------------------------
+T15: 10/0 | OCEKIVANO ERROR ILI INFINITY | DOBIJENO INFINITY | PROSAO
+T16: SPACE BAR | OCEKIVANO ERROR | DOBIJENO ERROR | PROSAO
+T17: PRAZAN UNOS "" (ENTER) | OCEKIVANO ERROR | DOBIJENO PROGRAM PADA | PAO
+T18: 5++5 | OCEKIVANO ERROR | DOBIJENO ERROR | PROSAO
+T19: 5a+7 | OCEKIVANO ERROR | DOBIJENO ERROR | PROSAO
+T20:   5   +    3 | OCEKIVANO 8.0 | DOBIJENO 8.0 | PROSAO
+
+TEST SA VELIKIM BROJEVIMA
+---------------------------
+T21: 10000000*10000000 | OCEKIVANO 1.0E14 | DOBIJENO 1.0E14 | PROSAO
+
+
+UNIT TEST
+-----------------------------
+
+
+import org.testng.annotations.Test;
+import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TestCalculator {
+
+    @Test
+    public void testCalculateAddition() {
+
+        List<Float> nums = new ArrayList<>(Arrays.asList(4.0f, 5.0f));
+        List<String> operation = new ArrayList<>(Arrays.asList("+"));
+        Calculator.Calculate(nums, operation);
+        Assert.assertEquals(Calculator.finalResult, 9.0f);
+    }
+
+    @Test
+    public void testCalculateSubstraction() {
+
+        List<Float> nums = new ArrayList<>(Arrays.asList(25.0f, 5.0f));
+        List<String> operation = new ArrayList<>(Arrays.asList("-"));
+        Calculator.Calculate(nums, operation);
+        Assert.assertEquals(Calculator.finalResult, 20.0f);
+
+
+    }
+    @Test
+    public void testCalculateMultiplication() {
+        List<Float> nums = new ArrayList<>(Arrays.asList(4.0f, 5.0f));
+        List<String> operation = new ArrayList<>(Arrays.asList("*"));
+        Calculator.Calculate(nums, operation);
+        Assert.assertEquals(Calculator.finalResult, 20.0f);
+
+    }
+
+    @Test
+    public void testCalculateDivision() {
+        List<Float> nums = new ArrayList<>(Arrays.asList(20.0f, 5.0f));
+        List<String> operation = new ArrayList<>(Arrays.asList("/"));
+        Calculator.Calculate(nums, operation);
+        Assert.assertEquals(Calculator.finalResult, 4.0f);
+    }
+
+}
+
+
+
 
